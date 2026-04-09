@@ -1,0 +1,23 @@
+name: Semgrep SAST Scan
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Semgrep scan (with security audit rules)
+        run: semgrep scan --config=auto --config=p/security-audit --json --output=semgrep_report.json
+      - name: Upload Semgrep report
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: semgrep_report.json
