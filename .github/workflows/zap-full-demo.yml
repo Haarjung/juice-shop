@@ -1,0 +1,19 @@
+name: ZAP Full Scan (demo.testfire.net)
+
+on:
+  workflow_dispatch:          # ручной запуск из интерфейса GitHub
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Active scan of demo.testfire.net
+    steps:
+      - name: ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.12.0
+        with:
+          target: 'http://demo.testfire.net'
+          cmd_options: '-a'
