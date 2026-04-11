@@ -1,7 +1,7 @@
 name: ZAP Full Scan (demo.testfire.net)
 
 on:
-  workflow_dispatch:          # ручной запуск из интерфейса GitHub
+  workflow_dispatch:
   push:
     branches: [ master, main ]
   pull_request:
@@ -17,3 +17,4 @@ jobs:
         with:
           target: 'http://demo.testfire.net'
           cmd_options: '-a'
+          allow_issue_writing: false
